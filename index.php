@@ -1,3 +1,8 @@
+<?php
+    $rota = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+    $path = explode("/", $rota['path']);
+    $rotasValidas = ['empresa', 'produtos', 'servicos'];
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -40,10 +45,10 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.php">Home</a></li>
-        <li><a href="empresa.php">Empresa</a></li>
-		<li><a href="produtos.php">Produtos</a></li>
-        <li><a href="servicos.php">Serviços</a></li>
+        <li <?php if($path[3] == "") { echo 'class="active"'; } ?>><a href="./">Home</a></li>
+        <li <?php if($path[3] == "empresa") { echo 'class="active"'; } ?>><a href="empresa">Empresa</a></li>
+		<li <?php if($path[3] == "produtos") { echo 'class="active"'; } ?>><a href="produtos">Produtos</a></li>
+        <li <?php if($path[3] == "servicos") { echo 'class="active"'; } ?>><a href="servicos">Serviços</a></li>
 		<li><a href="#contato">Contato</a></li>
       </ul>
             </div>
@@ -51,22 +56,17 @@
         </div>
         <!-- /.container -->
     </nav>
-
-	<!-- Section: intro -->
-    <section id="intro" class="intro">
-	
-		<div class="slogan">
-			<h2>BEM VINDO AO <span class="text_color">MEU PROJETO</span> </h2>
-			<h4>ESTE PROJETO FOI DESENVOLVIDO COM TWITTER BOOTSTRAP 3</h4>
-		</div>
-		<div class="page-scroll">
-			<a href="#contato" class="btn btn-circle">
-				<i class="fa fa-angle-double-down animated"></i>
-			</a>
-		</div>
-    </section>
-	<!-- /Section: intro -->
-
+    
+    <?php
+        if(in_array($path[3], $rotasValidas)){
+            require_once('includes/' . $path[3] . '.php');
+        } else if ($path[3] == ""){
+            require_once ('includes/home.php');
+        } else {
+            require_once ('includes/404.php');
+        }
+    ?>
+    
 	<!-- Section: contato -->
     <section id="contato" class="home-section text-center bg-dark">
 		<div class="heading-contact">
