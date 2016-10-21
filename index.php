@@ -7,11 +7,12 @@
 <html lang="pt-br">
 
 <head>
+	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Gabriel Bontorin</title>
+    <meta name="description" content="Curso Trilhando Caminho com PHP">
+    <meta name="author" content="Gabriel Bontorin Calbente">
+	
+    <title>Gabriel Bontorin Calbente</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -44,13 +45,13 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-      <ul class="nav navbar-nav">
-        <li <?php if($path[3] == "") { echo 'class="active"'; } ?>><a href="./">Home</a></li>
-        <li <?php if($path[3] == "empresa") { echo 'class="active"'; } ?>><a href="empresa">Empresa</a></li>
-		<li <?php if($path[3] == "produtos") { echo 'class="active"'; } ?>><a href="produtos">Produtos</a></li>
-        <li <?php if($path[3] == "servicos") { echo 'class="active"'; } ?>><a href="servicos">Serviços</a></li>
-		<li><a href="#contato">Contato</a></li>
-      </ul>
+			<ul class="nav navbar-nav">
+				<li <?php if(end($path) == "") { echo 'class="active"'; } ?>><a href="./">Home</a></li>
+				<li <?php if(end($path) == "empresa") { echo 'class="active"'; } ?>><a href="empresa">Empresa</a></li>
+				<li <?php if(end($path) == "produtos") { echo 'class="active"'; } ?>><a href="produtos">Produtos</a></li>
+				<li <?php if(end($path) == "servicos") { echo 'class="active"'; } ?>><a href="servicos">Servi&ccedil;os</a></li>
+				<li><a href="#contato">Contato</a></li>
+			</ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -58,9 +59,9 @@
     </nav>
     
     <?php
-        if(in_array($path[3], $rotasValidas)){
-            require_once('includes/' . $path[3] . '.php');
-        } else if ($path[3] == ""){
+        if(in_array(end($path), $rotasValidas)){
+            require_once('includes/' . end($path) . '.php');
+        } else if (end($path) == ""){
             require_once ('includes/home.php');
         } else {
             require_once ('includes/404.php');
